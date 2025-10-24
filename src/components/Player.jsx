@@ -9,9 +9,11 @@ export default function Player({ name, symbol, onEdit }) {
   }
   
   let playerName = <span className='player-name'>{name}</span>;
-  
+  // let btnCaption = 'Edit';
+   
   if (isEditing) {
-    playerName = <input defaultValue={name} type="text" required/>;
+    playerName = <input defaultValue={name} type="text" required value={name}/>;
+    // btnCaption = 'Save';
   }
 
   return (
