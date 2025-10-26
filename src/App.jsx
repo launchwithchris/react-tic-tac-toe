@@ -1,5 +1,6 @@
 
 import Player from './components/Player.jsx';
+import GameBoard from './components/GameBoard.jsx'; 
 
 function App() {
   
@@ -9,7 +10,7 @@ function App() {
         <Player initialName="Player 1" symbol="X" onEdit={() => {}} />
         <Player initialName="Player 2" symbol="O" onEdit={() => {}} />
       </ol>
-      GAME BOARD
+      <GameBoard />
     </div>
   </main>
 
