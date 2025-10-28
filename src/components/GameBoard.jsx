@@ -6,29 +6,38 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+export default function GameBoard({ onSelectSquare, turns }) {
+  let gameBoard = initialGameBoard;
 
-  function handleSelectSquare(rowIndex, cellIndex) {
-    setGameBoard((prevGameBoard) => {
-      const newGameBoard = [
-        ...prevGameBoard.map((innerArray) => [...innerArray]),
-      ].map((row, rIndex) => {
-        if (rIndex === rowIndex) {
-          return row.map((cell, cIndex) => {
-            if (cIndex === cellIndex) {
-              return activePlayerSymbol;
-            }
-            return cell;
-          });
-        }
-        return row;
-      });
-      return newGameBoard;
-    });
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
 
-    onSelectSquare && onSelectSquare(rowIndex, cellIndex);
+    gameBoard[row][col] = player;
   }
+
+  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+  // function handleSelectSquare(rowIndex, cellIndex) {
+  //   setGameBoard((prevGameBoard) => {
+  //     const newGameBoard = [
+  //       ...prevGameBoard.map((innerArray) => [...innerArray]),
+  //     ].map((row, rIndex) => {
+  //       if (rIndex === rowIndex) {
+  //         return row.map((cell, cIndex) => {
+  //           if (cIndex === cellIndex) {
+  //             return activePlayerSymbol;
+  //           }
+  //           return cell;
+  //         });
+  //       }
+  //       return row;
+  //     });
+  //     return newGameBoard;
+  //   });
+
+  //   onSelectSquare && onSelectSquare(rowIndex, cellIndex);
+  // }
 
   return (
     <ol id="game-board">
@@ -36,7 +45,7 @@ export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
         <ol key={rowIndex} className="game-row">
           {row.map((playerSymbol, cellIndex) => (
             <li key={cellIndex} className="game-cell">
-              <button onClick={() => handleSelectSquare(rowIndex, cellIndex)}>
+              <button onClick={() => onSelectSquare(rowIndex, cellIndex)}>
                 {playerSymbol}
               </button>
             </li>
